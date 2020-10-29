@@ -1,3 +1,4 @@
+
 {{ define "main" }}
 <section class="section">
   <main class="container mb-6">
@@ -8,20 +9,31 @@
       <span class="tag is-warning">{{ .WordCount }} Words</span>
     </h3>
 
-    <article class="content">
-      {{ .Content }}
-    </article>
+    <article class="content">{{ .Content }}</article>
   </main>
 
   <div class="container content">
+    
+    {{ $asset := resources.Get "/duck.jpg" }}
+    {{ $img := $asset.Fit "500x500"}}
+    <figure class="image is-3by2">
+      <img alt="Yellow Duck" src="{{ $img.RelPermalink }}" />
+    </figure>
+
     <ul>
       {{ with .PrevInSection }}
-      <li>Previous Post: <a class="previous" href="{{ .Permalink }}">{{.Title}}</a></li>
-      {{ end }}
-      {{ with .NextInSection }}
+      <li>
+        Previous Post:
+        <a class="previous" href="{{ .Permalink }}">{{.Title}}</a>
+      </li>
+      {{ end }} {{ with .NextInSection }}
       <li>Next Post: <a class="next" href="{{ .Permalink }}">{{.Title}}</a></li>
       {{ end }}
     </ul>
+
+    
+      
+    
   </div>
 </section>
 {{ end }}
